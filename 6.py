@@ -6,6 +6,7 @@ if day == "субота":
 else:
     print("I love python")
 
+# TODO delete this code
 if day == "неділя":
     print("Відпочиваємо, але завтра знову до роботи")
     print("Граємо в Дота 2")
@@ -16,6 +17,5 @@ else:
 
 if day != "понеділок":
     print("Ура хоч не понеділок")
-
 
 
