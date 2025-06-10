@@ -1,4 +1,5 @@
 import pandas as pd
+import matplotlib.pyplot as plt
 
 
 week = pd.Series({"Понеділок": 90, "Вівторок": 76, "Середа": 51, "Четвер": 39, "П'ятниця": 23, "Субота": 66, "Неділя": 100})
