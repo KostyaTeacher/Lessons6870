@@ -1,15 +1,37 @@
+import time
 import tkinter as tk
 from tkinter import messagebox
 
+running = False  # змінна, що зберігатиме стан: програма зараз працює або ні
+delay = 0  # змінна, що зберігатиме тривалість перерви після кожного кліку
+
+
 def start_clicker():
-    # тут буде запуск клікера
-    messagebox.showinfo("Auto Clicker", "Auto Clicker запушено. Натисни 'ESC' щоб зупинити.")
+    global running, delay  # "знаходимо" змінні, що існують поза функцією
+    clicks_per_second = int(entry.get())
+    delay = 1 / clicks_per_second  # рахуємо затримку між кліками
+    messagebox.showinfo("Auto Clicker", "Auto Clicker розпочинає роботу.")
+    running = True
+    # Запуск процесу кліків
+    schedule_click()
+
+
+def schedule_click():
+    if running:
+        print("Клац!")  # тут потім додамо клацання миші замість print
+    time.sleep(delay)  # затримка між кліками
+    schedule_click()  # функція знову викликає сама себе
 
 
 def exit_app():
-    # тут буде завершення програми
-    root.destroy() # Close the Tkinter window
 
+
+    # тут буде завершення програми
+    root.destroy()
+
+
+def show_info(event):
+    messagebox.showinfo("Інформація", "Це автоклікер, він буде клікати мишкою зі швидкістю, яку ти вкажеш!")
 
 root = tk.Tk()
 root.title("Auto Clicker")
@@ -40,5 +62,5 @@ start_button.grid(row=0, column=0, padx=10) # Add horizontal padding
 exit_button = tk.Button(button_frame, text="Вийти", command=exit_app, bg="#f44336", fg="white", font=("Trebuchet MS", 12))
 exit_button.grid(row=0, column=1, padx=10) # Add horizontal padding
 
-
+root.bind('i', show_info)
 root.mainloop()
