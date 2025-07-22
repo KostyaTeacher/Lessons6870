@@ -1,6 +1,9 @@
 import time
 import tkinter as tk
 from tkinter import messagebox
+import keyboard
+import mouse
+
 
 running = False  # змінна, що зберігатиме стан: програма зараз працює або ні
 delay = 0  # змінна, що зберігатиме тривалість перерви після кожного кліку
@@ -17,17 +20,19 @@ def start_clicker():
 
 
 def schedule_click():
-    if running:
-        print("Клац!")  # тут потім додамо клацання миші замість print
+    #sum = 0
+    while running:
+        mouse.click()
+        # print(f"Ви клікнули {sum} разів")
+        # sum += 1
     time.sleep(delay)  # затримка між кліками
-    schedule_click()  # функція знову викликає сама себе
 
 
 def exit_app():
-
-
-    # тут буде завершення програми
-    root.destroy()
+    global running
+    running = False
+    messagebox.showinfo("Auto Clicker", "Auto Clicker зупинено.")
+    #root.destroy() # Закриття вікна Tkinter
 
 
 def show_info(event):
@@ -47,7 +52,7 @@ label = tk.Label(root, text="Кліків на секунду:", font=("Trebuche
 label.pack(pady=5)
 
 # Entry для кількості кліків
-entry = tk.Entry(root, font=("Arial", 12))
+entry = tk.Entry(root, font=("Arial", 12), bd=0, highlightthickness=0, relief="flat")
 entry.pack(pady=5)
 
 # Frame, в якому будуть кнопки "почати" і "вийти"
@@ -55,12 +60,14 @@ button_frame = tk.Frame(root, bg="#e0f7fa")
 button_frame.pack(side=tk.BOTTOM, pady=(20, 30)) # Increase padding from the bottom
 
 # Кнопка "Почати"
-start_button = tk.Button(button_frame, text="Почати", command=start_clicker, bg="#4caf50", fg="white", font=("Trebuchet MS", 12))
+start_button = tk.Button(button_frame, text="Почати", command=start_clicker, bg="#4caf50", fg="white", font=("Trebuchet MS", 12)
+                         , bd=0, highlightthickness=0, relief="flat")
 start_button.grid(row=0, column=0, padx=10) # Add horizontal padding
 
 # Кнопка "Вийти"
-exit_button = tk.Button(button_frame, text="Вийти", command=exit_app, bg="#f44336", fg="white", font=("Trebuchet MS", 12))
+exit_button = tk.Button(button_frame, text="Вийти", command=exit_app, bg="#f44336", fg="white", font=("Trebuchet MS", 12), bd=0, highlightthickness=0, relief="flat")
 exit_button.grid(row=0, column=1, padx=10) # Add horizontal padding
 
 root.bind('i', show_info)
+keyboard.add_hotkey('esc', exit_app)
 root.mainloop()
