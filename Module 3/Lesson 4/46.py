@@ -8,6 +8,7 @@ def get_exchange_rates():
         "ids": "bitcoin,ethereum,tether",
         "vs_currencies": "uah"
     }
+
     try:
         response = requests.get(url, params=params)
         data = response.json()
